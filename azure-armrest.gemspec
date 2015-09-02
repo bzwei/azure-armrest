@@ -28,5 +28,5 @@ behind the scenes.
   spec.add_development_dependency "timecop", "~> 0.7"
 
   spec.add_dependency 'json'
-  spec.add_dependency 'rest-client'
+  spec.add_dependency 'rest-client', "=2.0.0.rc1"
 end
