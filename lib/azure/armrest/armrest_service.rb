@@ -172,7 +172,7 @@ module Azure
         url = File.join(Azure::Armrest::RESOURCE, "subscriptions?api-version=#{config.api_version}")
 
         options = {
-          :url         => url,
+          :url         => URI.encode(url),
           :proxy       => config.proxy,
           :ssl_version => config.ssl_version,
           :ssl_verify  => config.ssl_verify,
@@ -445,7 +445,7 @@ module Azure
 
       def rest_execute(url, body = nil, http_method = :get)
         options = {
-          :url         => url,
+          :url         => URI.encode(url),
           :proxy       => configuration.proxy,
           :ssl_version => configuration.ssl_version,
           :ssl_verify  => configuration.ssl_verify,
