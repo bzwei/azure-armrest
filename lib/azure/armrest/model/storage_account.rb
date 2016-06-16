@@ -134,7 +134,7 @@ module Azure
         headers = build_headers(url, key, :blob, :verb => 'HEAD')
 
         response = ArmrestService.rest_head(
-          :url     => url,
+          :url     => URI.encode(url),
           :headers => headers,
           :proxy   => proxy
         )
@@ -155,7 +155,7 @@ module Azure
         headers = build_headers(url, key)
 
         response = ArmrestService.rest_get(
-          :url     => url,
+          :url     => URI.encode(url),
           :headers => headers,
           :proxy   => proxy
         )
@@ -244,7 +244,7 @@ module Azure
         headers = build_headers(dst_url, key, :blob, options)
 
         response = ArmrestService.rest_put(
-          :url     => dst_url,
+          :url     => URI.encode(dst_url),
           :payload => '',
           :headers => headers,
           :proxy   => proxy
@@ -264,7 +264,7 @@ module Azure
         headers = build_headers(url, key, :blob, :verb => 'DELETE')
 
         response = ArmrestService.rest_delete(
-          :url      => url,
+          :url      => URI.encode(url),
           :headers  => headers,
           :proxy    => proxy
         )
@@ -292,7 +292,7 @@ module Azure
         headers = build_headers(url, key, :blob, options)
 
         response = ArmrestService.rest_put(
-          :url     => url,
+          :url     => URI.encode(url),
           :payload => '',
           :headers => headers,
           :proxy   => proxy
@@ -310,7 +310,7 @@ module Azure
         headers = build_headers(url, key, :blob, :verb => 'PUT')
 
         response = ArmrestService.rest_put(
-          :url     => url,
+          :url     => URI.encode(url),
           :payload => '',
           :headers => headers,
           :proxy   => proxy
@@ -331,7 +331,7 @@ module Azure
       def blob_response(key, query, *args)
         url = File.join(properties.primary_endpoints.blob, *args) + "?#{query}"
         headers = build_headers(url, key, 'blob')
-        ArmrestService.rest_get(:url => url, :headers => headers, :proxy => proxy)
+        ArmrestService.rest_get(:url => URI.encode(url), :headers => headers, :proxy => proxy)
       end
 
       # Using the blob primary endpoint as a base, join any arguments to the
@@ -344,7 +344,7 @@ module Azure
 
         url << "?#{query}" if query # Must happen after headers are built
 
-        ArmrestService.rest_get(:url => url, :headers => headers, :proxy => proxy)
+        ArmrestService.rest_get(:url => URI.encode(url), :headers => headers, :proxy => proxy)
       end
 
       # Set the headers needed, including the Authorization header.

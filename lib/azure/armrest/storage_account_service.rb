@@ -130,7 +130,11 @@ module Azure
               next unless File.extname(blob.name).downcase == '.vhd'
               next unless blob.properties.lease_state.downcase == 'available'
 
-              blob_properties = storage_account.blob_properties(blob.container, blob.name, key)
+              begin
+                blob_properties = storage_account.blob_properties(blob.container, blob.name, key)
+              rescue
+                next # skip url with special characters for now
+              end
               next unless blob_properties.respond_to?(:x_ms_meta_microsoftazurecompute_osstate)
               next unless blob_properties.x_ms_meta_microsoftazurecompute_osstate.downcase == 'generalized'
 

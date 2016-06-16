@@ -39,7 +39,7 @@ module Azure
 
           response = JSON.parse(
             ArmrestService.rest_post(
-              :url     => token_url,
+              :url     => URI.encode(token_url),
               :proxy   => proxy,
               :payload => {
                 :grant_type    => grant_type,
@@ -146,7 +146,7 @@ module Azure
         url = File.join(Azure::Armrest::RESOURCE, "subscriptions?api-version=#{config.api_version}")
 
         response = rest_get(
-          :url     => url,
+          :url     => URI.encode(url),
           :proxy   => config.proxy,
           :headers => {
             :content_type  => config.content_type,
@@ -379,7 +379,7 @@ module Azure
 
       def rest_execute(url, body = nil, http_method = :get)
         options = {
-          :url     => url,
+          :url     => URI.encode(url),
           :proxy   => configuration.proxy,
           :headers => {
             :accept        => configuration.accept,
